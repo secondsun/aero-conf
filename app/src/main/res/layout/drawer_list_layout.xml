@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="64dp">
+
+    <ImageView
+        android:id="@+id/nav_item_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_agenda"
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/nav_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:gravity="center_vertical"
+        android:text="New Text" />
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AeroConf</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">AeroConf</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="title_authorize_activty">Authorize</string>
+    <string name="ipsum_1_paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus facilisis sapien nisi, ut aliquet nibh vulputate nec. Ut volutpat diam elementum erat imperdiet, in rhoncus sapien malesuada. Nam tincidunt massa tellus, non mollis elit rhoncus ac. Nunc gravida elit enim, sit amet adipiscing mauris dapibus vitae. Etiam vehicula iaculis auctor. Ut congue molestie tellus, ut consectetur diam egestas adipiscing. Maecenas sem eros, fringilla at elit in, congue aliquam augue. Suspendisse vel facilisis urna, ac dignissim odio. Suspendisse rutrum porttitor est vitae congue. Vivamus gravida, eros vel sodales consectetur, metus libero lacinia magna, vel tempor elit sem vitae sem. Nullam sagittis e</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
