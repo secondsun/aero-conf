@@ -1,10 +1,14 @@
 package net.saga.aeroconf.app.data.vo;
 
+import org.jboss.aerogear.android.RecordId;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Presentation implements Serializable {
-    public int id;
+    @RecordId
+    public Integer id;
+
     public Date createdDate;
     public Date updatedDate;
     public int version;
@@ -59,5 +63,13 @@ public class Presentation implements Serializable {
         result = 31 * result + (presentationType != null ? presentationType.hashCode() : 0);
         result = 31 * result + (skillLevel != null ? skillLevel.hashCode() : 0);
         return result;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

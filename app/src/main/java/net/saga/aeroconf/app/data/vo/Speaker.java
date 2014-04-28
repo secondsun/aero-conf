@@ -1,5 +1,7 @@
 package net.saga.aeroconf.app.data.vo;
 
+import org.jboss.aerogear.android.RecordId;
+
 import java.net.URL;
 
 
@@ -7,7 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Speaker implements Serializable {
-    public int id;
+
+    @RecordId
+    public Integer id;
+
     public Date createdDate;
     public Date updatedDate;
     public int version;
@@ -61,4 +66,13 @@ public class Speaker implements Serializable {
         result = 31 * result + (linkedInId != null ? linkedInId.hashCode() : 0);
         return result;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }

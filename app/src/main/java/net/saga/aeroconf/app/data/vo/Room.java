@@ -1,11 +1,16 @@
 package net.saga.aeroconf.app.data.vo;
 
 
+import org.jboss.aerogear.android.RecordId;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Room implements Serializable {
-    public int id;
+
+    @RecordId
+    public Integer id;
+
     public Date createdDate;
     public Date updatedDate;
     public int version;
@@ -55,5 +60,13 @@ public class Room implements Serializable {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + roomOrder;
         return result;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
