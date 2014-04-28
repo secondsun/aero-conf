@@ -6,6 +6,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+
 import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.vo.Presentation;
@@ -19,6 +25,8 @@ import org.jboss.aerogear.android.impl.datamanager.StoreConfig;
 import org.jboss.aerogear.android.impl.datamanager.StoreTypes;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +37,9 @@ public class AeroConfContentProvider extends ContentProvider {
     public static final DataManager MANAGER = new DataManager();
 
     public final CountDownLatch storeLatch = new CountDownLatch(3);
+    private SQLStore<Room> roomStore;
+    private SQLStore<Speaker> speakerStore;
+    private SQLStore<Presentation> presentationStore;
 
     public AeroConfContentProvider() {
 
@@ -38,9 +49,9 @@ public class AeroConfContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
 
-        SQLStore<Room> roomStore = registerAndOpenStore(Room.class);
-        SQLStore<Speaker> speakerStore = registerAndOpenStore(Speaker.class);
-        SQLStore<Presentation> presentationStore = registerAndOpenStore(Presentation.class);
+        roomStore = registerAndOpenStore(Room.class);
+        speakerStore = registerAndOpenStore(Speaker.class);
+        presentationStore = registerAndOpenStore(Presentation.class);
 
         try {
             storeLatch.await(10, TimeUnit.SECONDS);
@@ -63,8 +74,56 @@ public class AeroConfContentProvider extends ContentProvider {
         return true;
     }
 
+
+    private void loadPresentationsFromFile() {
+        InputStream rooms = getContext().getResources().openRawResource(R.raw.rooms);
+        JsonReader reader = new JsonReader(new InputStreamReader(rooms));
+        JsonElement root = new JsonParser().parse(reader);
+        JsonArray array = root.getAsJsonObject().get("presentations").getAsJsonArray();
+
+        JsonElement element;
+        Gson gson = new Gson();
+
+        for (int i = 0; i < array.size(); i++) {
+            element = array.get(i);
+            Presentation room = gson.fromJson(element, Presentation.class);
+            presentationStore.save(room);
+        }
+
+    }
+
+    private void loadSpeakersFromFile() {
+        InputStream rooms = getContext().getResources().openRawResource(R.raw.speakers);
+        JsonReader reader = new JsonReader(new InputStreamReader(rooms));
+        JsonElement root = new JsonParser().parse(reader);
+        JsonArray array = root.getAsJsonObject().get("speakerList").getAsJsonObject().get("speaker").getAsJsonArray();
+
+        JsonElement element;
+        Gson gson = new Gson();
+
+        for (int i = 0; i < array.size(); i++) {
+            element = array.get(i);
+            Speaker speaker = gson.fromJson(element, Speaker.class);
+            speakerStore.save(speaker);
+        }
+
+    }
+
+
     private void loadRoomsFromFile() {
         InputStream rooms = getContext().getResources().openRawResource(R.raw.rooms);
+        JsonReader reader = new JsonReader(new InputStreamReader(rooms));
+        JsonElement root = new JsonParser().parse(reader);
+        JsonArray array = root.getAsJsonObject().get("roomList").getAsJsonObject().get("room").getAsJsonArray();
+
+        JsonElement element;
+        Gson gson = new Gson();
+
+        for (int i = 0; i < array.size(); i++) {
+            element = array.get(i);
+            Room room = gson.fromJson(element, Room.class);
+            roomStore.save(room);
+        }
 
     }
 
@@ -114,14 +173,14 @@ public class AeroConfContentProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+                        String[] selectionArgs, String sortOrder) {
         // TODO: Implement this to handle query requests from clients.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+                      String[] selectionArgs) {
         // TODO: Implement this to handle requests to update one or more rows.
         throw new UnsupportedOperationException("Not yet implemented");
     }
