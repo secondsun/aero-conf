@@ -4,7 +4,9 @@ import android.net.Uri;
 
 import net.saga.aeroconf.app.data.provider.AeroConfContentProvider;
 
-public abstract class ConfContract {
+public interface ConfContract {
+
+    public static final int NO_MATCH = 0;
 
     /**
      * All items will have a unique identifier
@@ -21,16 +23,25 @@ public abstract class ConfContract {
      */
     public static final String NOTIFY = "NOTIFY";
 
-    public static class Room extends ConfContract {
+    public static class Room implements ConfContract {
         public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Room");
+
+        public static final int ROOM = 1000;
+        public static final int ROOM_ID = 1001;
     }
 
-    public static class Speaker extends ConfContract {
+    public static class Speaker implements ConfContract {
         public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Speaker");
+
+        public static final int SPEAKER = 2000;
+        public static final int SPEAKER_ID = 2001;
     }
 
-    public static class Presentation extends ConfContract {
+    public static class Presentation implements ConfContract {
         public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Presentation");
+
+        public static final int PRESENTATION = 3000;
+        public static final int PRESENTATION_ID = 3001;
     }
 
 }

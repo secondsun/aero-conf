@@ -2,6 +2,7 @@ package net.saga.aeroconf.app.data.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -30,11 +31,24 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class AeroConfContentProvider extends ContentProvider {
+public class AeroConfContentProvider extends ContentProvider implements ConfContract{
 
     public static final String AUTHORITY = "content://org.jboss.aeroconf";
 
     public static final DataManager MANAGER = new DataManager();
+
+    private static UriMatcher MATCHER = new UriMatcher(0);
+
+    static {
+        MATCHER.addURI(AUTHORITY, "Room", Room.ROOM);
+        MATCHER.addURI(AUTHORITY, "Room/#", Room.ROOM_ID);
+
+        MATCHER.addURI(AUTHORITY, "Speaker", Speaker.SPEAKER);
+        MATCHER.addURI(AUTHORITY, "Speaker/#", Speaker.SPEAKER_ID);
+
+        MATCHER.addURI(AUTHORITY, "Presentation", Presentation.PRESENTATION);
+        MATCHER.addURI(AUTHORITY, "Presentation/#", Presentation.PRESENTATION_ID);
+    }
 
     public final CountDownLatch storeLatch = new CountDownLatch(3);
     private SQLStore<Room> roomStore;
@@ -154,34 +168,85 @@ public class AeroConfContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case Room.ROOM:
+                break;
+            case Speaker.SPEAKER:
+                break;
+            case Presentation.PRESENTATION:
+                break;
+        }
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public String getType(Uri uri) {
-        // TODO: Implement this to handle requests for the MIME type of the data
-        // at the given URI.
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case Room.ROOM:
+                break;
+            case Speaker.SPEAKER:
+                break;
+            case Presentation.PRESENTATION:
+                break;
+        }
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        // TODO: Implement this to handle requests to insert a new row.
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case Room.ROOM:
+                break;
+            case Speaker.SPEAKER:
+                break;
+            case Presentation.PRESENTATION:
+                break;
+        }
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // TODO: Implement this to handle query requests from clients.
+
+         int match = MATCHER.match(uri);
+
+        switch (match) {
+            case Room.ROOM:
+                break;
+            case Speaker.SPEAKER:
+                break;
+            case Presentation.PRESENTATION:
+                break;
+        }
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case Room.ROOM:
+                break;
+            case Speaker.SPEAKER:
+                break;
+            case Presentation.PRESENTATION:
+                break;
+        }
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
