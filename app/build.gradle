@@ -26,5 +26,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'org.jboss.aerogear:aerogear-android:1.4.0-SNAPSHOT@aar'
+    compile 'com.google.code.gson:gson:2.2.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
