@@ -53,7 +53,7 @@ public class CachingImageProvider {
 
                 String imageFileName = imageURI.getLastPathSegment();
 
-                File imageFile = new File(cacheDir.getPath() + File.pathSeparator + imageFileName);
+                File imageFile = new File(cacheDir.getPath() + "/" + imageFileName);
                 if (imageFile.exists()) {
                     try {
                         return BitmapFactory.decodeFile(imageFile.getCanonicalPath());
@@ -119,6 +119,7 @@ public class CachingImageProvider {
                         }
 
                     } catch (Exception e) {
+                        Log.e("IMAGE LOADER", e.getMessage(), e);
                         return null;
                     }
 
