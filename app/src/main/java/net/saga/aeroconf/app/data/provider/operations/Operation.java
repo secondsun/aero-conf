@@ -1,4 +1,4 @@
-package net.saga.aeroconf.app.data.provider;
+package net.saga.aeroconf.app.data.provider.operations;
 
 import android.content.ContentValues;
 import android.net.Uri;
