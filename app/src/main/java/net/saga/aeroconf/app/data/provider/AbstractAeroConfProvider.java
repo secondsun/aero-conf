@@ -161,6 +161,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
+        confirm();
         int match = MATCHER.match(uri);
 
         switch (match) {
@@ -179,7 +180,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
     @Override
     public String getType(Uri uri) {
-
+        confirm();
         int match = MATCHER.match(uri);
 
         switch (match) {
@@ -198,6 +199,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        confirm();
         int match = MATCHER.match(uri);
 
         switch (match) {
@@ -217,7 +219,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-
+        confirm();
         int match = MATCHER.match(uri);
 
         switch (match) {
@@ -237,6 +239,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
+        confirm();
         int match = MATCHER.match(uri);
 
         switch (match) {
