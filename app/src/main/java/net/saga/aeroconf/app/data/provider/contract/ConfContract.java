@@ -22,6 +22,7 @@ public interface ConfContract {
      * If a notification is necessary after an operation has been performed.
      */
     public static final String NOTIFY = "NOTIFY";
+    String[] COLUMNS = {DATA, NOTIFY};
 
     public static class RoomContract implements ConfContract {
         public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Room");
