@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.provider.operations.Operation;
-import net.saga.aeroconf.app.data.provider.operations.ScheduleDelete;
+import net.saga.aeroconf.app.data.provider.operations.DeleteOp;
 import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Schedule;
@@ -42,16 +42,10 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
 
         switch (match) {
             case RoomContract.ROOM:
-                throw new UnsupportedOperationException("Not yet implemented");
-
             case SpeakerContract.SPEAKER:
-                throw new UnsupportedOperationException("Not yet implemented");
-
             case PresentationContract.PRESENTATION:
-                throw new UnsupportedOperationException("Not yet implemented");
-
             case ScheduleContract.SCHEDULE:
-                op = new ScheduleDelete(resolver);
+                op = new DeleteOp(resolver, uri);
                 break;
         }
 
