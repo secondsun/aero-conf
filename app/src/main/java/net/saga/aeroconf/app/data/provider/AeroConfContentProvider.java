@@ -1,39 +1,21 @@
 package net.saga.aeroconf.app.data.provider;
 
-import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-
-import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.data.provider.operations.Operation;
+import net.saga.aeroconf.app.data.provider.operations.ScheduleDelete;
 import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Schedule;
 import net.saga.aeroconf.app.data.vo.Speaker;
-import net.saga.aeroconf.app.util.GsonUtils;
-
-import org.jboss.aerogear.android.Callback;
-import org.jboss.aerogear.android.DataManager;
-import org.jboss.aerogear.android.impl.datamanager.SQLStore;
-import org.jboss.aerogear.android.impl.datamanager.StoreConfig;
-import org.jboss.aerogear.android.impl.datamanager.StoreTypes;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public class AeroConfContentProvider extends AbstractAeroConfProvider implements ConfContract {
 
+    private ContentResolver resolver;
 
     public AeroConfContentProvider() {
 
@@ -47,29 +29,39 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
         speakerStore = registerAndOpenStore(Speaker.class);
         presentationStore = registerAndOpenStore(Presentation.class);
         scheduleStore = registerAndOpenStore(Schedule.class);
-
+        resolver = getContext().getContentResolver();
         return true;
     }
-
 
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
         int match = MATCHER.match(uri);
+        Operation<Integer> op = null;
 
         switch (match) {
             case RoomContract.ROOM:
-                break;
+                throw new UnsupportedOperationException("Not yet implemented");
+
             case SpeakerContract.SPEAKER:
-                break;
+                throw new UnsupportedOperationException("Not yet implemented");
+
             case PresentationContract.PRESENTATION:
-                break;
+                throw new UnsupportedOperationException("Not yet implemented");
+
             case ScheduleContract.SCHEDULE:
+                op = new ScheduleDelete(resolver);
                 break;
         }
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        Integer res = execute(uri, null, selection, selectionArgs, op);
+        if (res == null) {
+            res = 0;
+        }
+
+        return res;
+
     }
 
     @Override
@@ -86,9 +78,12 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
                 break;
             case ScheduleContract.SCHEDULE:
                 break;
+            default: {
+                throw new IllegalArgumentException(String.format("%s not supported", uri.toString()));
+            }
         }
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        return uri.toString();
     }
 
     @Override
