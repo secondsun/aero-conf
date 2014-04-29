@@ -17,6 +17,7 @@ import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
+import net.saga.aeroconf.app.data.vo.Schedule;
 import net.saga.aeroconf.app.data.vo.Speaker;
 import net.saga.aeroconf.app.util.GsonUtils;
 
@@ -40,20 +41,24 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
     private static UriMatcher MATCHER = new UriMatcher(0);
 
     static {
-        MATCHER.addURI(AUTHORITY, "RoomContract", RoomContract.ROOM);
-        MATCHER.addURI(AUTHORITY, "RoomContract/#", RoomContract.ROOM_ID);
+        MATCHER.addURI(AUTHORITY, "Room", RoomContract.ROOM);
+        MATCHER.addURI(AUTHORITY, "Room/#", RoomContract.ROOM_ID);
 
-        MATCHER.addURI(AUTHORITY, "SpeakerContract", SpeakerContract.SPEAKER);
-        MATCHER.addURI(AUTHORITY, "SpeakerContract/#", SpeakerContract.SPEAKER_ID);
+        MATCHER.addURI(AUTHORITY, "Speaker", SpeakerContract.SPEAKER);
+        MATCHER.addURI(AUTHORITY, "Speaker/#", SpeakerContract.SPEAKER_ID);
 
-        MATCHER.addURI(AUTHORITY, "PresentationContract", PresentationContract.PRESENTATION);
-        MATCHER.addURI(AUTHORITY, "PresentationContract/#", PresentationContract.PRESENTATION_ID);
+        MATCHER.addURI(AUTHORITY, "Presentation", PresentationContract.PRESENTATION);
+        MATCHER.addURI(AUTHORITY, "Presentation/#", PresentationContract.PRESENTATION_ID);
+
+        MATCHER.addURI(AUTHORITY, "Schedule", ScheduleContract.SCHEDULE);
+        MATCHER.addURI(AUTHORITY, "Schedule/#", ScheduleContract.SCHEDULE_ID);
     }
 
     public final CountDownLatch storeLatch = new CountDownLatch(3);
     private SQLStore<Room> roomStore;
     private SQLStore<Speaker> speakerStore;
     private SQLStore<Presentation> presentationStore;
+    private SQLStore<Schedule> scheduleStore;
 
     public AeroConfContentProvider() {
 
@@ -66,6 +71,7 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         roomStore = registerAndOpenStore(Room.class);
         speakerStore = registerAndOpenStore(Speaker.class);
         presentationStore = registerAndOpenStore(Presentation.class);
+        scheduleStore = registerAndOpenStore(Schedule.class);
 
         try {
             storeLatch.await(10, TimeUnit.SECONDS);
@@ -85,7 +91,27 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
             loadPresentationsFromFile();
         }
 
+        if (scheduleStore.isEmpty()) {
+            loadSchedulesFromFile();
+        }
+
         return true;
+    }
+
+    private void loadSchedulesFromFile() {
+        InputStream schedule = getContext().getResources().openRawResource(R.raw.schedule);
+        JsonReader reader = new JsonReader(new InputStreamReader(schedule));
+        JsonElement root = new JsonParser().parse(reader);
+        JsonArray array = root.getAsJsonArray();
+
+        JsonElement element;
+        Gson gson = GsonUtils.GSON;
+
+        for (int i = 0; i < array.size(); i++) {
+            element = array.get(i);
+            Schedule scheduleItem = gson.fromJson(element, Schedule.class);
+            scheduleStore.save(scheduleItem);
+        }
     }
 
 
@@ -177,6 +203,8 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
                 break;
             case PresentationContract.PRESENTATION:
                 break;
+            case ScheduleContract.SCHEDULE:
+                break;
         }
 
         throw new UnsupportedOperationException("Not yet implemented");
@@ -194,6 +222,8 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
                 break;
             case PresentationContract.PRESENTATION:
                 break;
+            case ScheduleContract.SCHEDULE:
+                break;
         }
 
         throw new UnsupportedOperationException("Not yet implemented");
@@ -209,6 +239,8 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
             case SpeakerContract.SPEAKER:
                 break;
             case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
                 break;
         }
 
@@ -228,6 +260,8 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
                 break;
             case PresentationContract.PRESENTATION:
                 break;
+            case ScheduleContract.SCHEDULE:
+                break;
         }
 
         throw new UnsupportedOperationException("Not yet implemented");
@@ -245,6 +279,9 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
                 break;
             case PresentationContract.PRESENTATION:
                 break;
+            case ScheduleContract.SCHEDULE:
+                break;
+
         }
 
         throw new UnsupportedOperationException("Not yet implemented");
