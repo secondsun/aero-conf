@@ -8,11 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.activity.pager.NavigationPagerAdapter;
@@ -105,7 +103,6 @@ public class MainActivity extends ActionBarActivity {
      * Swaps fragments in the main content view
      */
     private void selectItem(int position) {
-        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
 
         mDrawerList.setItemChecked(position, true);
         setTitle(mNavItems[position].label);
