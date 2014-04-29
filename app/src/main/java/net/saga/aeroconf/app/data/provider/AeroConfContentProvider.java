@@ -65,11 +65,8 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
 
         switch (match) {
             case RoomContract.ROOM:
-                break;
             case SpeakerContract.SPEAKER:
-                break;
             case PresentationContract.PRESENTATION:
-                break;
             case ScheduleContract.SCHEDULE:
                 break;
             default: {
