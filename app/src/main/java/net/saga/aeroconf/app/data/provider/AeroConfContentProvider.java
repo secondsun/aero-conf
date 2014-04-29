@@ -18,6 +18,7 @@ import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Speaker;
+import net.saga.aeroconf.app.util.GsonUtils;
 
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.DataManager;
@@ -27,11 +28,10 @@ import org.jboss.aerogear.android.impl.datamanager.StoreTypes;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class AeroConfContentProvider extends ContentProvider implements ConfContract{
+public class AeroConfContentProvider extends ContentProvider implements ConfContract {
 
     public static final String AUTHORITY = "content://org.jboss.aeroconf";
 
@@ -40,14 +40,14 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
     private static UriMatcher MATCHER = new UriMatcher(0);
 
     static {
-        MATCHER.addURI(AUTHORITY, "Room", Room.ROOM);
-        MATCHER.addURI(AUTHORITY, "Room/#", Room.ROOM_ID);
+        MATCHER.addURI(AUTHORITY, "RoomContract", RoomContract.ROOM);
+        MATCHER.addURI(AUTHORITY, "RoomContract/#", RoomContract.ROOM_ID);
 
-        MATCHER.addURI(AUTHORITY, "Speaker", Speaker.SPEAKER);
-        MATCHER.addURI(AUTHORITY, "Speaker/#", Speaker.SPEAKER_ID);
+        MATCHER.addURI(AUTHORITY, "SpeakerContract", SpeakerContract.SPEAKER);
+        MATCHER.addURI(AUTHORITY, "SpeakerContract/#", SpeakerContract.SPEAKER_ID);
 
-        MATCHER.addURI(AUTHORITY, "Presentation", Presentation.PRESENTATION);
-        MATCHER.addURI(AUTHORITY, "Presentation/#", Presentation.PRESENTATION_ID);
+        MATCHER.addURI(AUTHORITY, "PresentationContract", PresentationContract.PRESENTATION);
+        MATCHER.addURI(AUTHORITY, "PresentationContract/#", PresentationContract.PRESENTATION_ID);
     }
 
     public final CountDownLatch storeLatch = new CountDownLatch(3);
@@ -90,18 +90,18 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
 
 
     private void loadPresentationsFromFile() {
-        InputStream rooms = getContext().getResources().openRawResource(R.raw.rooms);
-        JsonReader reader = new JsonReader(new InputStreamReader(rooms));
+        InputStream presentations = getContext().getResources().openRawResource(R.raw.presentations);
+        JsonReader reader = new JsonReader(new InputStreamReader(presentations));
         JsonElement root = new JsonParser().parse(reader);
         JsonArray array = root.getAsJsonObject().get("presentations").getAsJsonArray();
 
         JsonElement element;
-        Gson gson = new Gson();
+        Gson gson = GsonUtils.GSON;
 
         for (int i = 0; i < array.size(); i++) {
             element = array.get(i);
-            Presentation room = gson.fromJson(element, Presentation.class);
-            presentationStore.save(room);
+            Presentation presentation = gson.fromJson(element, Presentation.class);
+            presentationStore.save(presentation);
         }
 
     }
@@ -113,7 +113,7 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         JsonArray array = root.getAsJsonObject().get("speakerList").getAsJsonObject().get("speaker").getAsJsonArray();
 
         JsonElement element;
-        Gson gson = new Gson();
+        Gson gson = GsonUtils.GSON;
 
         for (int i = 0; i < array.size(); i++) {
             element = array.get(i);
@@ -131,7 +131,7 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         JsonArray array = root.getAsJsonObject().get("roomList").getAsJsonObject().get("room").getAsJsonArray();
 
         JsonElement element;
-        Gson gson = new Gson();
+        Gson gson = GsonUtils.GSON;
 
         for (int i = 0; i < array.size(); i++) {
             element = array.get(i);
@@ -171,11 +171,11 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         int match = MATCHER.match(uri);
 
         switch (match) {
-            case Room.ROOM:
+            case RoomContract.ROOM:
                 break;
-            case Speaker.SPEAKER:
+            case SpeakerContract.SPEAKER:
                 break;
-            case Presentation.PRESENTATION:
+            case PresentationContract.PRESENTATION:
                 break;
         }
 
@@ -188,11 +188,11 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         int match = MATCHER.match(uri);
 
         switch (match) {
-            case Room.ROOM:
+            case RoomContract.ROOM:
                 break;
-            case Speaker.SPEAKER:
+            case SpeakerContract.SPEAKER:
                 break;
-            case Presentation.PRESENTATION:
+            case PresentationContract.PRESENTATION:
                 break;
         }
 
@@ -204,11 +204,11 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         int match = MATCHER.match(uri);
 
         switch (match) {
-            case Room.ROOM:
+            case RoomContract.ROOM:
                 break;
-            case Speaker.SPEAKER:
+            case SpeakerContract.SPEAKER:
                 break;
-            case Presentation.PRESENTATION:
+            case PresentationContract.PRESENTATION:
                 break;
         }
 
@@ -219,14 +219,14 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-         int match = MATCHER.match(uri);
+        int match = MATCHER.match(uri);
 
         switch (match) {
-            case Room.ROOM:
+            case RoomContract.ROOM:
                 break;
-            case Speaker.SPEAKER:
+            case SpeakerContract.SPEAKER:
                 break;
-            case Presentation.PRESENTATION:
+            case PresentationContract.PRESENTATION:
                 break;
         }
 
@@ -239,11 +239,11 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         int match = MATCHER.match(uri);
 
         switch (match) {
-            case Room.ROOM:
+            case RoomContract.ROOM:
                 break;
-            case Speaker.SPEAKER:
+            case SpeakerContract.SPEAKER:
                 break;
-            case Presentation.PRESENTATION:
+            case PresentationContract.PRESENTATION:
                 break;
         }
 

@@ -23,22 +23,22 @@ public interface ConfContract {
      */
     public static final String NOTIFY = "NOTIFY";
 
-    public static class Room implements ConfContract {
-        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Room");
+    public static class RoomContract implements ConfContract {
+        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/RoomContract");
 
         public static final int ROOM = 1000;
         public static final int ROOM_ID = 1001;
     }
 
-    public static class Speaker implements ConfContract {
-        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Speaker");
+    public static class SpeakerContract implements ConfContract {
+        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/SpeakerContract");
 
         public static final int SPEAKER = 2000;
         public static final int SPEAKER_ID = 2001;
     }
 
-    public static class Presentation implements ConfContract {
-        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/Presentation");
+    public static class PresentationContract implements ConfContract {
+        public static final Uri URI = Uri.parse(AeroConfContentProvider.AUTHORITY + "/PresentationContract");
 
         public static final int PRESENTATION = 3000;
         public static final int PRESENTATION_ID = 3001;
