@@ -54,7 +54,7 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         MATCHER.addURI(AUTHORITY, "Schedule/#", ScheduleContract.SCHEDULE_ID);
     }
 
-    public final CountDownLatch storeLatch = new CountDownLatch(3);
+    public final CountDownLatch storeLatch = new CountDownLatch(4);
     private SQLStore<Room> roomStore;
     private SQLStore<Speaker> speakerStore;
     private SQLStore<Presentation> presentationStore;
@@ -72,28 +72,6 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
         speakerStore = registerAndOpenStore(Speaker.class);
         presentationStore = registerAndOpenStore(Presentation.class);
         scheduleStore = registerAndOpenStore(Schedule.class);
-
-        try {
-            storeLatch.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (roomStore.isEmpty()) {
-            loadRoomsFromFile();
-        }
-
-        if (speakerStore.isEmpty()) {
-            loadSpeakersFromFile();
-        }
-
-        if (presentationStore.isEmpty()) {
-            loadPresentationsFromFile();
-        }
-
-        if (scheduleStore.isEmpty()) {
-            loadSchedulesFromFile();
-        }
 
         return true;
     }
@@ -286,4 +264,32 @@ public class AeroConfContentProvider extends ContentProvider implements ConfCont
 
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    /**
+     * Called before all operations to ensure that the datastores are set up.
+     */
+    private void confirm() {
+        try {
+            storeLatch.await(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (roomStore.isEmpty()) {
+            loadRoomsFromFile();
+        }
+
+        if (speakerStore.isEmpty()) {
+            loadSpeakersFromFile();
+        }
+
+        if (presentationStore.isEmpty()) {
+            loadPresentationsFromFile();
+        }
+
+        if (scheduleStore.isEmpty()) {
+            loadSchedulesFromFile();
+        }
+    }
+
 }
