@@ -37,8 +37,7 @@ public class NavigationPagerAdapter extends FragmentStatePagerAdapter {
             case MY_AGENDA:
                 break;
             case SCHEDULE:
-                new ScheduleFragment();
-                break;
+                return new ScheduleFragment();
             case VENUE_MAP:
                 break;
             case ABOUT:
