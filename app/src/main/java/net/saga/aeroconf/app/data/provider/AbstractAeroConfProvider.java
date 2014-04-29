@@ -222,9 +222,6 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
         return returnRef.get();
     }
 
-    protected interface Operation<T> {
-        T exec(Gson gson, SQLStore calendarStore, Uri uri, ContentValues[] values, String selection, String[] selectionArgs);
-    }
 
 
 }
