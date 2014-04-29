@@ -38,7 +38,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public abstract class AbstractAeroConfProvider extends ContentProvider implements ConfContract {
 
-    public static final String AUTHORITY = "content://org.jboss.aeroconf";
+    public static final String AUTHORITY = "org.jboss.aeroconf";
 
     public static final DataManager MANAGER = new DataManager();
     private static final String TAG = "ContentProvider";

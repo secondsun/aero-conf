@@ -153,7 +153,7 @@ public class ScheduleAdapter extends BaseAdapter {
                 holder.date.setText(format.format(item.fromTime));
 
                 if (item != null) {
-                    holder.date.setBackgroundResource(R.color.abc_search_url_text_holo);
+                    holder.date.setBackgroundResource(android.R.color.holo_blue_bright);
                     if (item.room_id != null)
                         holder.roomName.setText("Link room and schedule");
                     if (item.presentation_id != null) {
