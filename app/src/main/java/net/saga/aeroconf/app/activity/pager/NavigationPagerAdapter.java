@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import net.saga.aeroconf.app.ui.adapter.NavItem;
 import net.saga.aeroconf.app.ui.fragment.BlankFragment;
 import net.saga.aeroconf.app.ui.fragment.DashboardFragment;
+import net.saga.aeroconf.app.ui.fragment.ScheduleFragment;
 
 /**
  * Created by summers on 4/25/14.
@@ -36,6 +37,7 @@ public class NavigationPagerAdapter extends FragmentStatePagerAdapter {
             case MY_AGENDA:
                 break;
             case SCHEDULE:
+                new ScheduleFragment();
                 break;
             case VENUE_MAP:
                 break;
