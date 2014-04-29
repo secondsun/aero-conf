@@ -3,7 +3,6 @@ package net.saga.aeroconf.app.data.provider;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
-import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -15,6 +14,7 @@ import com.google.gson.stream.JsonReader;
 
 import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.data.provider.operations.Operation;
 import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Schedule;
