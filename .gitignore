@@ -24,6 +24,7 @@ tmp/
 
 .gradle/
 build/
+local.properties
 
 ########### Android ###########
 
