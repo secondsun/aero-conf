@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Created by summers on 4/29/14.
@@ -40,8 +41,9 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
     public static final String AUTHORITY = "content://org.jboss.aeroconf";
 
     public static final DataManager MANAGER = new DataManager();
+    private static final String TAG = "ContentProvider";
 
-    private static UriMatcher MATCHER = new UriMatcher(0);
+    protected static UriMatcher MATCHER = new UriMatcher(0);
 
     static {
         MATCHER.addURI(AUTHORITY, "Room", RoomContract.ROOM);
@@ -159,104 +161,6 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
     }
 
-    @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
-        confirm();
-        int match = MATCHER.match(uri);
-
-        switch (match) {
-            case RoomContract.ROOM:
-                break;
-            case SpeakerContract.SPEAKER:
-                break;
-            case PresentationContract.PRESENTATION:
-                break;
-            case ScheduleContract.SCHEDULE:
-                break;
-        }
-
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public String getType(Uri uri) {
-        confirm();
-        int match = MATCHER.match(uri);
-
-        switch (match) {
-            case RoomContract.ROOM:
-                break;
-            case SpeakerContract.SPEAKER:
-                break;
-            case PresentationContract.PRESENTATION:
-                break;
-            case ScheduleContract.SCHEDULE:
-                break;
-        }
-
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public Uri insert(Uri uri, ContentValues values) {
-        confirm();
-        int match = MATCHER.match(uri);
-
-        switch (match) {
-            case RoomContract.ROOM:
-                break;
-            case SpeakerContract.SPEAKER:
-                break;
-            case PresentationContract.PRESENTATION:
-                break;
-            case ScheduleContract.SCHEDULE:
-                break;
-        }
-
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-                        String[] selectionArgs, String sortOrder) {
-        confirm();
-        int match = MATCHER.match(uri);
-
-        switch (match) {
-            case RoomContract.ROOM:
-                break;
-            case SpeakerContract.SPEAKER:
-                break;
-            case PresentationContract.PRESENTATION:
-                break;
-            case ScheduleContract.SCHEDULE:
-                break;
-        }
-
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public int update(Uri uri, ContentValues values, String selection,
-                      String[] selectionArgs) {
-        confirm();
-        int match = MATCHER.match(uri);
-
-        switch (match) {
-            case RoomContract.ROOM:
-                break;
-            case SpeakerContract.SPEAKER:
-                break;
-            case PresentationContract.PRESENTATION:
-                break;
-            case ScheduleContract.SCHEDULE:
-                break;
-
-        }
-
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     /**
      * Called before all operations to ensure that the datastores are set up.
      */
@@ -282,6 +186,44 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
         if (scheduleStore.isEmpty()) {
             loadSchedulesFromFile();
         }
+    }
+
+    protected <T> T execute(final Uri uri, final ContentValues[] values, final String selection, final String[] selectionArgs, final Operation<T> op) {
+        final AtomicReference<T> returnRef = new AtomicReference<T>();
+
+        confirm();
+
+        SQLStore tempStore;
+
+        int match = MATCHER.match(uri);
+        switch (match) {
+            case PresentationContract.PRESENTATION:
+                tempStore = presentationStore;
+                break;
+            case SpeakerContract.SPEAKER:
+                tempStore = speakerStore;
+                break;
+            case RoomContract.ROOM:
+                tempStore = roomStore;
+                break;
+            case ScheduleContract.SCHEDULE:
+                tempStore = scheduleStore;
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("%s not supported", uri.toString()));
+        }
+
+        final SQLStore store = tempStore;
+
+
+        synchronized (TAG) {
+            returnRef.set(op.exec(GsonUtils.GSON, store, uri, values, selection, selectionArgs));
+        }
+        return returnRef.get();
+    }
+
+    protected interface Operation<T> {
+        T exec(Gson gson, SQLStore calendarStore, Uri uri, ContentValues[] values, String selection, String[] selectionArgs);
     }
 
 

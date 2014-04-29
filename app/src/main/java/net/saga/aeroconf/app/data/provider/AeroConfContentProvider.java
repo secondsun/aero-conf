@@ -51,4 +51,105 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
         return true;
     }
 
+
+
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case RoomContract.ROOM:
+                break;
+            case SpeakerContract.SPEAKER:
+                break;
+            case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
+                break;
+        }
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public String getType(Uri uri) {
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case RoomContract.ROOM:
+                break;
+            case SpeakerContract.SPEAKER:
+                break;
+            case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
+                break;
+        }
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case RoomContract.ROOM:
+                break;
+            case SpeakerContract.SPEAKER:
+                break;
+            case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
+                break;
+        }
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case RoomContract.ROOM:
+                break;
+            case SpeakerContract.SPEAKER:
+                break;
+            case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
+                break;
+        }
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public int update(Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
+
+        int match = MATCHER.match(uri);
+
+        switch (match) {
+            case RoomContract.ROOM:
+                break;
+            case SpeakerContract.SPEAKER:
+                break;
+            case PresentationContract.PRESENTATION:
+                break;
+            case ScheduleContract.SCHEDULE:
+                break;
+
+        }
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+
 }
