@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dn_black">#0C1620</color>
+    <color name="dn_off_black">#0E27eB</color>
+    <color name="dn_dark_blue">#0c4364</color>
+    <color name="dn_blue">#297ca5</color>
+    <color name="dn_light_blue">#7bb7cd</color>
+    <color name="dn_dark_green">#147b47</color>
+    <color name="dn_green">#519d55</color>
+    <color name="dn_teal">#44b75c</color>
+    <color name="dn_red">#630d1a</color>
+    <color name="dn_orange_red">#d14928</color>
+    <color name="dn_road_cone_orange">#ef5f2c</color>
+    <color name="dn_orange">#fd8c2a</color>
+    <color name="dn_gold">#dbaa2e</color>
+    <color name="dn_yellow">#f7cb59</color>
+    <color name="dn_gray">#455159</color>
+    <color name="dn_light_gray">#617784</color>
+    <color name="dn_white">#ffffff</color>
+    <color name="track_1">#630d1a</color>
+    <color name="track_102">#44b75c</color>
+    <color name="track_2">#fd8c2a</color>
+    <color name="track_3">#7bb7cd</color>
+    <color name="track_4">#dbaa2e</color>
+    <color name="track_5">#297ca5</color>
+    <color name="track_6">#d14928</color>
+    <color name="track_7">#455159</color>
+    <color name="track_8">#A2285E</color>
+    <color name="track_9">#FF5D40</color>
+    <color name="track_10">#6A237E</color>
+    <color name="track_11">#617784</color>
+    <color name="black_overlay">#66000000</color>
+</resources>

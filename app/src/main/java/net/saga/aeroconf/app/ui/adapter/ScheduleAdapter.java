@@ -17,6 +17,7 @@ import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Schedule;
 import net.saga.aeroconf.app.util.GsonUtils;
+import net.saga.aeroconf.app.util.ResourceUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -158,13 +159,16 @@ public class ScheduleAdapter extends BaseAdapter {
                 holder.date.setText(format.format(item.fromTime));
 
                 if (item != null) {
-                    holder.date.setBackgroundResource(android.R.color.holo_blue_bright);
+
                     if (item.room_id != null) {
                         Cursor roomCursor = appContext.getContentResolver().query(ConfContract.RoomContract.idUri(item.room_id), null, null, null, null);
                         if (roomCursor.moveToNext()) {
-                            holder.roomName.setText(GsonUtils.GSON.fromJson(roomCursor.getString(0), Room.class).name);
+                            Room room = GsonUtils.GSON.fromJson(roomCursor.getString(0), Room.class);
+                            holder.date.setBackgroundResource(ResourceUtils.trackCSSToColor(room.cssStyleName));
+                            holder.roomName.setText(room.name);
                         } else {
                             holder.roomName.setText("Empty Room");
+                            holder.date.setBackgroundResource(R.color.dn_blue);
                         }
                         roomCursor.close();
                     }
