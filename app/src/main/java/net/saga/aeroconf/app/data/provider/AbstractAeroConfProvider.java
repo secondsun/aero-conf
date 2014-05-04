@@ -198,15 +198,19 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
         int match = MATCHER.match(uri);
         switch (match) {
             case PresentationContract.PRESENTATION:
+            case PresentationContract.PRESENTATION_ID:
                 tempStore = presentationStore;
                 break;
             case SpeakerContract.SPEAKER:
+            case SpeakerContract.SPEAKER_ID:
                 tempStore = speakerStore;
                 break;
             case RoomContract.ROOM:
+            case RoomContract.ROOM_ID:
                 tempStore = roomStore;
                 break;
             case ScheduleContract.SCHEDULE:
+            case ScheduleContract.SCHEDULE_ID:
                 tempStore = scheduleStore;
                 break;
             default:

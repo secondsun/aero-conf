@@ -29,6 +29,10 @@ public interface ConfContract {
 
         public static final int ROOM = 1000;
         public static final int ROOM_ID = 1001;
+
+        public static Uri idUri(Integer room_id) {
+            return URI.buildUpon().appendEncodedPath(room_id.toString()).build();
+        }
     }
 
     public static class SpeakerContract implements ConfContract {
@@ -43,6 +47,10 @@ public interface ConfContract {
 
         public static final int PRESENTATION = 3000;
         public static final int PRESENTATION_ID = 3001;
+
+        public static Uri idUri(Integer presentation_id) {
+            return URI.buildUpon().appendEncodedPath(presentation_id.toString()).build();
+        }
     }
 
     public static class ScheduleContract implements ConfContract {
@@ -50,6 +58,10 @@ public interface ConfContract {
 
         public static final int SCHEDULE = 4000;
         public static final int SCHEDULE_ID = 4001;
+
+        public static Uri idUri(Integer schedule_id) {
+            return URI.buildUpon().appendEncodedPath(schedule_id.toString()).build();
+        }
     }
 
 }
