@@ -1,6 +1,7 @@
 package net.saga.aeroconf.app.ui.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -11,7 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.saga.aeroconf.app.R;
+import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.data.vo.Presentation;
 import net.saga.aeroconf.app.data.vo.Schedule;
+import net.saga.aeroconf.app.util.GsonUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -157,7 +161,13 @@ public class ScheduleAdapter extends BaseAdapter {
                     if (item.room_id != null)
                         holder.roomName.setText("Link room and schedule");
                     if (item.presentation_id != null) {
-                        holder.title.setText("Link presentation and schedule");
+                        Cursor presentation = appContext.getContentResolver().query(ConfContract.PresentationContract.URI, null, ConfContract.ID, new String[]{item.presentation_id + ""}, null);
+                        if (presentation.moveToNext()) {
+                            holder.title.setText(GsonUtils.GSON.fromJson(presentation.getString(0), Presentation.class).title);
+                        } else {
+                            holder.title.setText("Empty Title");
+                        }
+
                     } else {
                         holder.title.setText(item.title);
                     }

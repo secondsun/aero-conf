@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import net.saga.aeroconf.app.util.GsonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SingleColumnJsonArrayList<T> extends AbstractCursor {
@@ -16,6 +17,11 @@ public class SingleColumnJsonArrayList<T> extends AbstractCursor {
 
     public SingleColumnJsonArrayList(List<T> cursorList) {
         this.cursorList = cursorList;
+    }
+
+    public SingleColumnJsonArrayList(T value) {
+        cursorList = new ArrayList<>(1);
+        cursorList.add(value);
     }
 
     @Override

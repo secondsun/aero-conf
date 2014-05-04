@@ -124,7 +124,7 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
             case SpeakerContract.SPEAKER:
             case PresentationContract.PRESENTATION:
             case ScheduleContract.SCHEDULE:
-                return execute(uri, null, null, null, new QueryOp());
+                return execute(uri, null, selection, selectionArgs, new QueryOp());
             default:
                 throw new IllegalArgumentException(String.format("%s not supported", uri.toString()));
         }
