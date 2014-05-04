@@ -11,12 +11,10 @@ import net.saga.aeroconf.app.data.provider.contract.SingleColumnJsonArrayList;
 
 import org.jboss.aerogear.android.impl.datamanager.SQLStore;
 
-import java.util.ArrayList;
-
-public class QueryOp implements Operation<Cursor> {
+public class FetchOp implements Operation<Cursor> {
 
     @Override
     public SingleColumnJsonArrayList exec(Gson gson, SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
-        return new SingleColumnJsonArrayList(new ArrayList(store.readAll()));
+        return new SingleColumnJsonArrayList((store.read(uri.getLastPathSegment())));
     }
 }

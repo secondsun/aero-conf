@@ -8,6 +8,7 @@ import android.net.Uri;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.provider.operations.BulkInsertOp;
 import net.saga.aeroconf.app.data.provider.operations.DeleteOp;
+import net.saga.aeroconf.app.data.provider.operations.FetchOp;
 import net.saga.aeroconf.app.data.provider.operations.InsertOp;
 import net.saga.aeroconf.app.data.provider.operations.Operation;
 import net.saga.aeroconf.app.data.provider.operations.QueryOp;
@@ -125,6 +126,11 @@ public class AeroConfContentProvider extends AbstractAeroConfProvider implements
             case PresentationContract.PRESENTATION:
             case ScheduleContract.SCHEDULE:
                 return execute(uri, null, selection, selectionArgs, new QueryOp());
+            case RoomContract.ROOM_ID:
+            case SpeakerContract.SPEAKER_ID:
+            case PresentationContract.PRESENTATION_ID:
+            case ScheduleContract.SCHEDULE_ID:
+                return execute(uri, null, selection, selectionArgs, new FetchOp());
             default:
                 throw new IllegalArgumentException(String.format("%s not supported", uri.toString()));
         }
