@@ -25,7 +25,7 @@ public interface ConfContract {
     String[] COLUMNS = {DATA, NOTIFY};
 
     public static class RoomContract implements ConfContract {
-        public static final Uri URI = Uri.parse("content://" + AeroConfContentProvider.AUTHORITY + "/ Room");
+        public static final Uri URI = Uri.parse("content://" + AeroConfContentProvider.AUTHORITY + "/Room");
 
         public static final int ROOM = 1000;
         public static final int ROOM_ID = 1001;
