@@ -14,6 +14,7 @@ import android.widget.TextView;
 import net.saga.aeroconf.app.R;
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
 import net.saga.aeroconf.app.data.vo.Presentation;
+import net.saga.aeroconf.app.data.vo.Room;
 import net.saga.aeroconf.app.data.vo.Schedule;
 import net.saga.aeroconf.app.util.GsonUtils;
 
@@ -158,15 +159,25 @@ public class ScheduleAdapter extends BaseAdapter {
 
                 if (item != null) {
                     holder.date.setBackgroundResource(android.R.color.holo_blue_bright);
-                    if (item.room_id != null)
-                        holder.roomName.setText("Link room and schedule");
+                    if (item.room_id != null) {
+                        Cursor roomCursor = appContext.getContentResolver().query(ConfContract.RoomContract.idUri(item.room_id), null, null, null, null);
+                        if (roomCursor.moveToNext()) {
+                            holder.roomName.setText(GsonUtils.GSON.fromJson(roomCursor.getString(0), Room.class).name);
+                        } else {
+                            holder.roomName.setText("Empty Room");
+                        }
+                        roomCursor.close();
+                    }
+
                     if (item.presentation_id != null) {
-                        Cursor presentation = appContext.getContentResolver().query(ConfContract.PresentationContract.URI, null, ConfContract.ID, new String[]{item.presentation_id + ""}, null);
+                        Cursor presentation = appContext.getContentResolver().query(ConfContract.PresentationContract.idUri(item.presentation_id), null, null, null, null);
                         if (presentation.moveToNext()) {
                             holder.title.setText(GsonUtils.GSON.fromJson(presentation.getString(0), Presentation.class).title);
                         } else {
                             holder.title.setText("Empty Title");
                         }
+
+                        presentation.close();
 
                     } else {
                         holder.title.setText(item.title);
