@@ -7,18 +7,18 @@ import java.util.Date;
 
 public class Presentation implements Serializable {
     @RecordId
-    public Integer id;
+    private Integer id;
 
-    public Date createdDate;
-    public Date updatedDate;
-    public int version;
-    public String audioLink;
-    public String description;
-    public String presentationLink;
-    public Speaker speaker;
+    private Date createdDate;
+    private Date updatedDate;
+    private int version;
+    private String audioLink;
+    private String description;
+    private String presentationLink;
+    private Speaker speaker;
     public String title;
-    public String presentationType;
-    public String skillLevel;
+    private String presentationType;
+    private String skillLevel;
 
     @Override
     public boolean equals(Object o) {
@@ -43,10 +43,8 @@ public class Presentation implements Serializable {
             return false;
         if (speaker != null ? !speaker.equals(that.speaker) : that.speaker != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (updatedDate != null ? !updatedDate.equals(that.updatedDate) : that.updatedDate != null)
-            return false;
+        return !(updatedDate != null ? !updatedDate.equals(that.updatedDate) : that.updatedDate != null);
 
-        return true;
     }
 
     @Override

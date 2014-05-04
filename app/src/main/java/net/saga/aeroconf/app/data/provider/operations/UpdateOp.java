@@ -5,9 +5,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 
-import com.google.gson.Gson;
-
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.util.GsonUtils;
 
 import org.jboss.aerogear.android.impl.datamanager.SQLStore;
 
@@ -24,14 +23,14 @@ public class UpdateOp<T> implements Operation<Integer> {
     }
 
     @Override
-    public Integer exec(Gson gson, SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
+    public Integer exec(SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
         if (selectionArgs == null || selectionArgs[0] == null) {
             store.reset();
         } else {
             Long id = Long.getLong(selectionArgs[0]);
             store.remove(id);
         }
-        T object = gson.fromJson(values[0].getAsString(ConfContract.DATA), klass);
+        T object = GsonUtils.GSON.fromJson(values[0].getAsString(ConfContract.DATA), klass);
         store.save(object);
         if (values[0].getAsBoolean(ConfContract.NOTIFY) != null && values[0].getAsBoolean(ConfContract.NOTIFY)) {
             resolver.notifyChange(notifyUri, null, false);

@@ -20,9 +20,6 @@ import java.net.URL;
 
 import static android.os.Environment.isExternalStorageRemovable;
 
-/**
- * Created by summers on 12/16/13.
- */
 public class CachingImageProvider {
 
     private static final String IMAGE_DIR = "images";
@@ -32,7 +29,7 @@ public class CachingImageProvider {
 
 
     private CachingImageProvider(Context context) {
-        cacheDir = getDiskCacheDir(context, IMAGE_DIR);
+        cacheDir = getDiskCacheDir(context);
         if (!cacheDir.exists()) {
             cacheDir.mkdir();
         }
@@ -160,7 +157,7 @@ public class CachingImageProvider {
     // Creates a unique subdirectory of the designated app cache directory. Tries to use external
     // but if not mounted, falls back on internal storage.
 
-    public static File getDiskCacheDir(Context context, String uniqueName) {
+    private static File getDiskCacheDir(Context context) {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
         final String cachePath =
@@ -168,18 +165,7 @@ public class CachingImageProvider {
                         !isExternalStorageRemovable() ? context.getExternalCacheDir().getPath() :
                         context.getCacheDir().getPath();
 
-        return new File(cachePath + File.separator + uniqueName);
-    }
-
-    public static int copy(InputStream input, OutputStream output) throws IOException {
-        byte[] buffer = new byte[1024];
-        int count = 0;
-        int n = 0;
-        while (-1 != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
-        }
-        return count;
+        return new File(cachePath + File.separator + CachingImageProvider.IMAGE_DIR);
     }
 
 }

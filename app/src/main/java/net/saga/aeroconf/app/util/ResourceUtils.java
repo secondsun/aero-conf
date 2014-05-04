@@ -6,12 +6,9 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by summers on 11/13/13.
- */
 public class ResourceUtils {
 
-    private static Map<String, Integer> cassValueMap = new HashMap<String, Integer>();
+    private static final Map<String, Integer> cassValueMap = new HashMap<String, Integer>();
 
     public static int trackCSSToColor(String trackCSS) {
         if (trackCSS == null) {
@@ -32,10 +29,6 @@ public class ResourceUtils {
 
         return cassValueMap.get(trackId);
 
-    }
-
-    public static int roomCSSToColor(String roomName) {
-        return trackCSSToColor(RoomName.room(roomName).trackName);
     }
 
 }

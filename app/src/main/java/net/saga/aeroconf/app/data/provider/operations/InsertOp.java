@@ -4,15 +4,11 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 
-import com.google.gson.Gson;
-
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.util.GsonUtils;
 
 import org.jboss.aerogear.android.impl.datamanager.SQLStore;
 
-/**
- * Created by summers on 4/29/14.
- */
 public class InsertOp<T> implements Operation<Uri> {
 
     private final ContentResolver resolver;
@@ -26,8 +22,8 @@ public class InsertOp<T> implements Operation<Uri> {
     }
 
     @Override
-    public Uri exec(Gson gson, SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
-        T calendar = gson.fromJson(values[0].getAsString(ConfContract.DATA), klass);
+    public Uri exec(SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
+        T calendar = GsonUtils.GSON.fromJson(values[0].getAsString(ConfContract.DATA), klass);
         store.save(calendar);
 
         if (values[0].getAsBoolean(ConfContract.NOTIFY) != null && values[0].getAsBoolean(ConfContract.NOTIFY)) {

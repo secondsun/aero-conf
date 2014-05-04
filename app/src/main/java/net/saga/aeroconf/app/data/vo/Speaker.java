@@ -2,26 +2,23 @@ package net.saga.aeroconf.app.data.vo;
 
 import org.jboss.aerogear.android.RecordId;
 
-import java.net.URL;
-
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class Speaker implements Serializable {
 
     @RecordId
-    public Integer id;
+    private Integer id;
 
-    public Date createdDate;
-    public Date updatedDate;
-    public int version;
-    public String bio;
-    public String firstName;
-    public String lastName;
-    public String twitterId;
-    public String googlePlusId;
-    public String linkedInId;
+    private Date createdDate;
+    private Date updatedDate;
+    private int version;
+    private String bio;
+    private String firstName;
+    private String lastName;
+    private String twitterId;
+    private String googlePlusId;
+    private String linkedInId;
 
 
     @Override
@@ -46,10 +43,8 @@ public class Speaker implements Serializable {
             return false;
         if (twitterId != null ? !twitterId.equals(speaker.twitterId) : speaker.twitterId != null)
             return false;
-        if (updatedDate != null ? !updatedDate.equals(speaker.updatedDate) : speaker.updatedDate != null)
-            return false;
+        return !(updatedDate != null ? !updatedDate.equals(speaker.updatedDate) : speaker.updatedDate != null);
 
-        return true;
     }
 
     @Override

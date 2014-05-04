@@ -24,9 +24,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by summers on 4/29/14.
- */
 public class ScheduleFragment extends Fragment {
 
     private ScheduleAdapter adapter;
@@ -34,7 +31,7 @@ public class ScheduleFragment extends Fragment {
     private ContentResolver resolver;
 
     private final Observer observer = new Observer(new Handler());
-    private List<Schedule> calendar = new ArrayList<Schedule>();
+    private final List<Schedule> calendar = new ArrayList<Schedule>();
     private AsyncTask<Void, Void, List<Schedule>> calendarLoaderTask;
 
     public ScheduleFragment() {
@@ -119,11 +116,15 @@ public class ScheduleFragment extends Fragment {
         calendarLoaderTask.cancel(false);
     }
 
-    public synchronized void dataUpdated(Collection<Schedule> newData) {
+    synchronized void dataUpdated(Collection<Schedule> newData) {
         calendar.clear();
         calendar.addAll(newData);
         adapter.update(new ArrayList<Schedule>(newData));
         adapter.notifyDataSetChanged();
+    }
+
+    public static ScheduleFragment newInstance() {
+        return new ScheduleFragment();
     }
 
     private final class Observer extends ContentObserver {

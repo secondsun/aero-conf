@@ -43,8 +43,4 @@ public final class GsonUtils {
         GSON = builder.create();
     }
 
-    public static GsonBuilder builder() {
-        return builder;
-    }
-
 }

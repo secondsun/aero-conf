@@ -2,9 +2,7 @@ package net.saga.aeroconf.app.data.provider;
 
 import net.saga.aeroconf.app.data.vo.DashboardCard;
 
-/**
- * Created by summers on 4/25/14.
- */
+
 public class DashboardCards {
 
     public static final DashboardCard[] CARDS = {

@@ -4,13 +4,9 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 
-import com.google.gson.Gson;
-
 import org.jboss.aerogear.android.impl.datamanager.SQLStore;
 
-/**
- * Created by summers on 4/29/14.
- */
+
 public class DeleteOp implements Operation<Integer> {
 
     private final ContentResolver resolver;
@@ -22,7 +18,7 @@ public class DeleteOp implements Operation<Integer> {
     }
 
     @Override
-    public Integer exec(Gson gson, SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
+    public Integer exec(SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
 
         if (selectionArgs == null || selectionArgs[0] == null) {
             store.reset();

@@ -1,10 +1,8 @@
 package net.saga.aeroconf.app.ui.fragment;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,8 +22,7 @@ import net.saga.aeroconf.app.util.CachingImageProvider;
 public class DashboardFragment extends Fragment {
 
 
-    private DashboardCard[] CARDS = DashboardCards.CARDS;
-    private AsyncTask<Void, Void, Bitmap> imageLoader;
+    private final DashboardCard[] CARDS = DashboardCards.CARDS;
     private boolean stopped = false;
 
     // TODO: Rename and change types and number of parameters
@@ -89,12 +86,6 @@ public class DashboardFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         stopped = true;
@@ -104,11 +95,6 @@ public class DashboardFragment extends Fragment {
     public void onStart() {
         super.onStart();
         stopped = false;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
 

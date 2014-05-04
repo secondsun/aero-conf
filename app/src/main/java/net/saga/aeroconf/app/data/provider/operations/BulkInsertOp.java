@@ -4,15 +4,11 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 
-import com.google.gson.Gson;
-
 import net.saga.aeroconf.app.data.provider.contract.ConfContract;
+import net.saga.aeroconf.app.util.GsonUtils;
 
 import org.jboss.aerogear.android.impl.datamanager.SQLStore;
 
-/**
- * Created by summers on 4/29/14.
- */
 public class BulkInsertOp<T> implements Operation<Integer> {
 
     private final ContentResolver resolver;
@@ -26,9 +22,9 @@ public class BulkInsertOp<T> implements Operation<Integer> {
     }
 
     @Override
-    public Integer exec(Gson gson, SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
+    public Integer exec(SQLStore store, Uri uri, ContentValues[] values, String selection, String[] selectionArgs) {
         for (ContentValues value : values) {
-            T calendar = gson.fromJson(value.getAsString(ConfContract.DATA), klass);
+            T calendar = GsonUtils.GSON.fromJson(value.getAsString(ConfContract.DATA), klass);
             store.save(calendar);
         }
 

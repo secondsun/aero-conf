@@ -9,12 +9,9 @@ import net.saga.aeroconf.app.ui.fragment.BlankFragment;
 import net.saga.aeroconf.app.ui.fragment.DashboardFragment;
 import net.saga.aeroconf.app.ui.fragment.ScheduleFragment;
 
-/**
- * Created by summers on 4/25/14.
- */
 public class NavigationPagerAdapter extends FragmentStatePagerAdapter {
 
-    private enum NavEnum {DASHBOARD, MY_AGENDA, SCHEDULE, VENUE_MAP, ABOUT};
+    private enum NavEnum {DASHBOARD, MY_AGENDA, SCHEDULE, VENUE_MAP, ABOUT}
 
     public  final static NavItem[] NAV_ITEMS = new NavItem[]{new NavItem(android.R.drawable.ic_dialog_dialer, "Dashboard"),
             new NavItem(android.R.drawable.ic_menu_my_calendar, "My Agenda"),
@@ -33,11 +30,11 @@ public class NavigationPagerAdapter extends FragmentStatePagerAdapter {
         NavEnum value = NavEnum.valueOf(NAV_ITEMS[position].label.toUpperCase().replace(" ", "_"));
         switch (value) {
             case DASHBOARD:
-                return new DashboardFragment();
+                return DashboardFragment.newInstance();
             case MY_AGENDA:
                 break;
             case SCHEDULE:
-                return new ScheduleFragment();
+                return ScheduleFragment.newInstance();
             case VENUE_MAP:
                 break;
             case ABOUT:

@@ -17,7 +17,7 @@ import net.saga.aeroconf.app.activity.pager.NavigationPagerAdapter;
 import net.saga.aeroconf.app.ui.adapter.NavItem;
 import net.saga.aeroconf.app.ui.adapter.NavigationMenuAdapter;
 
-public class MainActivity extends ActionBarActivity {
+class MainActivity extends ActionBarActivity {
 
     private final NavItem[] mNavItems = NavigationPagerAdapter.NAV_ITEMS;
     private DrawerLayout mDrawerLayout;
@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        mDrawerList.setAdapter(new NavigationMenuAdapter(getApplicationContext(), R.layout.drawer_list_layout, mNavItems));
+        mDrawerList.setAdapter(new NavigationMenuAdapter(getApplicationContext(), mNavItems));
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 

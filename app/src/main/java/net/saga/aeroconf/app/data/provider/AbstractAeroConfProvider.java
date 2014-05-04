@@ -33,17 +33,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * Created by summers on 4/29/14.
- */
 public abstract class AbstractAeroConfProvider extends ContentProvider implements ConfContract {
 
     public static final String AUTHORITY = "org.jboss.aeroconf";
 
-    public static final DataManager MANAGER = new DataManager();
+    private static final DataManager MANAGER = new DataManager();
     private static final String TAG = "ContentProvider";
 
-    protected static UriMatcher MATCHER = new UriMatcher(0);
+    static final UriMatcher MATCHER = new UriMatcher(0);
 
     static {
         MATCHER.addURI(AUTHORITY, "Room", RoomContract.ROOM);
@@ -59,11 +56,11 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
         MATCHER.addURI(AUTHORITY, "Schedule/#", ScheduleContract.SCHEDULE_ID);
     }
 
-    public final CountDownLatch storeLatch = new CountDownLatch(4);
-    protected  SQLStore<Room> roomStore;
-    protected  SQLStore<Speaker> speakerStore;
-    protected  SQLStore<Presentation> presentationStore;
-    protected SQLStore<Schedule> scheduleStore;
+    private final CountDownLatch storeLatch = new CountDownLatch(4);
+    SQLStore<Room> roomStore;
+    SQLStore<Speaker> speakerStore;
+    SQLStore<Presentation> presentationStore;
+    SQLStore<Schedule> scheduleStore;
 
 
 
@@ -136,7 +133,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
     }
 
-    protected <T> SQLStore<T> registerAndOpenStore(Class<T> storeClass) {
+    <T> SQLStore<T> registerAndOpenStore(Class<T> storeClass) {
 
         StoreConfig config = new StoreConfig(storeClass);
         config.setContext(getContext().getApplicationContext());
@@ -188,7 +185,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
         }
     }
 
-    protected <T> T execute(final Uri uri, final ContentValues[] values, final String selection, final String[] selectionArgs, final Operation<T> op) {
+    <T> T execute(final Uri uri, final ContentValues[] values, final String selection, final String[] selectionArgs, final Operation<T> op) {
         final AtomicReference<T> returnRef = new AtomicReference<T>();
 
         confirm();
@@ -221,7 +218,7 @@ public abstract class AbstractAeroConfProvider extends ContentProvider implement
 
 
         synchronized (TAG) {
-            returnRef.set(op.exec(GsonUtils.GSON, store, uri, values, selection, selectionArgs));
+            returnRef.set(op.exec(store, uri, values, selection, selectionArgs));
         }
         return returnRef.get();
     }

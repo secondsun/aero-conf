@@ -9,12 +9,9 @@ import android.widget.TextView;
 
 import net.saga.aeroconf.app.R;
 
-/**
- * Created by summers on 4/25/14.
- */
 public class NavigationMenuAdapter extends ArrayAdapter<NavItem> {
-    public NavigationMenuAdapter(Context context, int resource, NavItem[] objects) {
-        super(context, resource, objects);
+    public NavigationMenuAdapter(Context context, NavItem[] objects) {
+        super(context, R.layout.drawer_list_layout, objects);
     }
 
     @Override

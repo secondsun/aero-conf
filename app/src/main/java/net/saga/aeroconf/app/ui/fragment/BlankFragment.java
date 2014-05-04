@@ -17,7 +17,7 @@ public class BlankFragment extends Fragment {
         return fragment;
     }
 
-    public BlankFragment() {
+    private BlankFragment() {
     }
 
     @Override

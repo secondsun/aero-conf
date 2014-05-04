@@ -9,18 +9,18 @@ import java.util.Date;
 public class Room implements Serializable {
 
     @RecordId
-    public Integer id;
+    private Integer id;
 
-    public Date createdDate;
-    public Date updatedDate;
-    public int version;
+    private Date createdDate;
+    private Date updatedDate;
+    private int version;
 
     public String name;
-    public String track;
+    private String track;
     public String cssStyleName;
-    public int capacity;
-    public String description;
-    public int roomOrder;
+    private int capacity;
+    private String description;
+    private int roomOrder;
 
     @Override
     public boolean equals(Object o) {
@@ -41,10 +41,8 @@ public class Room implements Serializable {
             return false;
         if (name != null ? !name.equals(room.name) : room.name != null) return false;
         if (track != null ? !track.equals(room.track) : room.track != null) return false;
-        if (updatedDate != null ? !updatedDate.equals(room.updatedDate) : room.updatedDate != null)
-            return false;
+        return !(updatedDate != null ? !updatedDate.equals(room.updatedDate) : room.updatedDate != null);
 
-        return true;
     }
 
     @Override

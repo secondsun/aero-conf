@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 
 import net.saga.aeroconf.app.R;
 
-public class WelcomeScreen extends Activity {
+class WelcomeScreen extends Activity {
 
     public static final String AUTHORIZED = "org.saga.conf.AUTHORIZED";
 

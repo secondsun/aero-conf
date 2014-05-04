@@ -3,9 +3,6 @@ package net.saga.aeroconf.app.data.vo;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by summers on 4/25/14.
- */
 public class DashboardCard {
 
     public final String text;

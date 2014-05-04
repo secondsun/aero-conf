@@ -7,17 +7,17 @@ import java.util.Date;
 public class Schedule implements Comparable<Schedule> {
 
     @RecordId
-    public Integer id;
-    public Date createdDate;
-    public Date updatedDate;
-    public int version;
-    public String scheduleItemType;
+    private Integer id;
+    private Date createdDate;
+    private Date updatedDate;
+    private int version;
+    private String scheduleItemType;
     public String title;
     public Date fromTime;
-    public Date toTime;
+    private Date toTime;
     public Integer room_id;
     public Integer presentation_id;
-    public int rowspan;
+    private int rowspan;
 
     public Integer getId() {
         return id;
@@ -50,10 +50,8 @@ public class Schedule implements Comparable<Schedule> {
         if (title != null ? !title.equals(schedule.title) : schedule.title != null) return false;
         if (toTime != null ? !toTime.equals(schedule.toTime) : schedule.toTime != null)
             return false;
-        if (updatedDate != null ? !updatedDate.equals(schedule.updatedDate) : schedule.updatedDate != null)
-            return false;
+        return !(updatedDate != null ? !updatedDate.equals(schedule.updatedDate) : schedule.updatedDate != null);
 
-        return true;
     }
 
     @Override

@@ -26,18 +26,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by summers on 4/29/14.
- */
 public class ScheduleAdapter extends BaseAdapter {
 
 
-    public static final int DATE_TYPE = 0;
-    public static final int ITEM_TYPE = 1;
+    private static final int DATE_TYPE = 0;
+    private static final int ITEM_TYPE = 1;
     private static final String TAG = ScheduleAdapter.class.getSimpleName();
 
 
-    final DateFormat format = new SimpleDateFormat("h:mm a");
+    private final DateFormat format = new SimpleDateFormat("h:mm a");
 
 
     private List<Schedule> calendar;
