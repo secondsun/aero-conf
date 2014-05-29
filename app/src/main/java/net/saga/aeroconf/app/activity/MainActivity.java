@@ -31,7 +31,7 @@ import net.saga.aeroconf.app.activity.pager.NavigationPagerAdapter;
 import net.saga.aeroconf.app.ui.adapter.NavItem;
 import net.saga.aeroconf.app.ui.adapter.NavigationMenuAdapter;
 
-class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity {
 
     private final NavItem[] mNavItems = NavigationPagerAdapter.NAV_ITEMS;
     private DrawerLayout mDrawerLayout;

@@ -175,8 +175,8 @@ public class CachingImageProvider {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
         final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
-                        !isExternalStorageRemovable() ? context.getExternalCacheDir().getPath() :
+                (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                        !isExternalStorageRemovable()) && context.getExternalCacheDir() != null ? context.getExternalCacheDir().getPath() :
                         context.getCacheDir().getPath();
 
         return new File(cachePath + File.separator + CachingImageProvider.IMAGE_DIR);

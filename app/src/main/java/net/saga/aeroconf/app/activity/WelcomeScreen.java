@@ -22,7 +22,7 @@ import android.preference.PreferenceManager;
 
 import net.saga.aeroconf.app.R;
 
-class WelcomeScreen extends Activity {
+public class WelcomeScreen extends Activity {
 
     public static final String AUTHORIZED = "org.saga.conf.AUTHORIZED";
 

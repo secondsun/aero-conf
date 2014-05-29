@@ -24,7 +24,7 @@ import android.widget.Button;
 
 import net.saga.aeroconf.app.R;
 
-class AuthorizeActivity extends Activity {
+public class AuthorizeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
